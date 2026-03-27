@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiltalkapi.tiltalk.app.api.learn.mapper.LearnWordMapper">
+
+    <select id="getDailyLearnWords" parameterType="LearnWordRequestDto" resultType="LearnWordItemDto">
+
+        SELECT word_no,
+               level,
+               category_no,
+               kor_word,
+               kor_romanization,
+               kor_audio_url,
+               kk_word,
+               kk_romanization,
+               kk_audio_url
+        FROM tb_words;
+
+
+    </select>
+
+</mapper>

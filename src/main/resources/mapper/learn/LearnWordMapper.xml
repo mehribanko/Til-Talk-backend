@@ -6,16 +6,17 @@
 
     <select id="getDailyLearnWords" parameterType="LearnWordRequestDto" resultType="LearnWordItemDto">
 
-        SELECT word_no,
-               level,
-               category_no,
-               kor_word,
-               kor_romanization,
-               kor_audio_url,
-               kk_word,
-               kk_romanization,
-               kk_audio_url
-        FROM tb_words;
+        SELECT tb1.word_no,
+               tb1.level,
+               tb2.category_name,
+               tb1.kor_word,
+               tb1.kor_romanization,
+               tb1.kor_audio_url,
+               tb1.kk_word,
+               tb1.kk_romanization,
+               tb1.kk_audio_url
+        FROM tb_words tb1
+        LEFT JOIN tb_category tb2 ON tb2.category_no = tb1.category_no;
 
 
     </select>

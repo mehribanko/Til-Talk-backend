@@ -5,7 +5,6 @@
 <mapper namespace="com.tiltalkapi.tiltalk.app.api.learn.mapper.LearnWordMapper">
 
     <select id="getDailyLearnWords" parameterType="LearnWordRequestDto" resultType="LearnWordItemDto">
-
         SELECT tb1.word_no,
                tb1.level,
                tb2.category_name,
@@ -17,8 +16,16 @@
                tb1.kk_audio_url
         FROM tb_words tb1
         LEFT JOIN tb_category tb2 ON tb2.category_no = tb1.category_no;
+    </select>
 
-
+    <select id ="getDailyLearnLimit" parameterType="UserSettingRequestDto" resultType="UserSettingResultDto">
+        SELECT
+            t1.user_id,
+            t1.native_lang,
+            t1.target_lang,
+            t1.daily_word_limit
+        FROM tb_user_settings t1
+        WHERE t1.user_id = #{userId}
     </select>
 
 </mapper>

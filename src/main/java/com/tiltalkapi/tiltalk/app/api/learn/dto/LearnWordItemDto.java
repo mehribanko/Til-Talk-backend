@@ -9,7 +9,7 @@ public class LearnWordItemDto {
 
     private Integer wordNo;
     private String level;
-    private Integer categoryName;
+    private String categoryName;
     private String korWord;
     private String korRomanization;
     private String korAudioUrl;

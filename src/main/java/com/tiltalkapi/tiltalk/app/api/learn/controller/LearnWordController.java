@@ -24,7 +24,7 @@ public class LearnWordController {
         return learnWordService.getDailyLearnWords(requestDto);
     }
 
-    @GetMapping
+    @GetMapping("/daily/limit")
     UserSettingResultDto getDailyLearnLimit(UserSettingRequestDto requestDto){
         return learnWordService.getDailyLearnLimit(requestDto);
     }

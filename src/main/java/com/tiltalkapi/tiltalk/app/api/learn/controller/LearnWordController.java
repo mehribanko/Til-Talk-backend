@@ -1,12 +1,10 @@
 package com.tiltalkapi.tiltalk.app.api.learn.controller;
 
-import com.tiltalkapi.tiltalk.app.api.learn.dto.LearnWordItemDto;
-import com.tiltalkapi.tiltalk.app.api.learn.dto.LearnWordRequestDto;
-import com.tiltalkapi.tiltalk.app.api.learn.dto.UserSettingRequestDto;
-import com.tiltalkapi.tiltalk.app.api.learn.dto.UserSettingResultDto;
+import com.tiltalkapi.tiltalk.app.api.learn.dto.*;
 import com.tiltalkapi.tiltalk.app.api.learn.service.LearnWordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,5 +25,11 @@ public class LearnWordController {
     @GetMapping("/daily/limit")
     UserSettingResultDto getDailyLearnLimit(UserSettingRequestDto requestDto){
         return learnWordService.getDailyLearnLimit(requestDto);
+    }
+
+
+    @PostMapping("/daily/progress")
+    void saveDailyLearnWordProgress(SaveWordProgressRequestDto requestDto) {
+        learnWordService.saveDailyLearnWordProgress(requestDto);
     }
 }

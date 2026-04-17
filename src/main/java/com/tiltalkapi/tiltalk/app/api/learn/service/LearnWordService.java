@@ -1,9 +1,6 @@
 package com.tiltalkapi.tiltalk.app.api.learn.service;
 
-import com.tiltalkapi.tiltalk.app.api.learn.dto.LearnWordItemDto;
-import com.tiltalkapi.tiltalk.app.api.learn.dto.LearnWordRequestDto;
-import com.tiltalkapi.tiltalk.app.api.learn.dto.UserSettingRequestDto;
-import com.tiltalkapi.tiltalk.app.api.learn.dto.UserSettingResultDto;
+import com.tiltalkapi.tiltalk.app.api.learn.dto.*;
 import com.tiltalkapi.tiltalk.app.api.learn.mapper.LearnWordMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,4 +21,12 @@ public class LearnWordService {
         requestDto.setUserId(1);
         return learnWordMapper.getDailyLearnLimit(requestDto);
     }
+
+    public void saveDailyLearnWordProgress(SaveWordProgressRequestDto requestDto){
+
+        requestDto.setUserId(1);
+
+
+    }
+
 }

@@ -28,4 +28,41 @@
         WHERE t1.user_id = #{userId}
     </select>
 
+
+    <select id ="getUserProgressPerWord" parameterType="SaveWordProgressRequestDto" resultType="WordProgressResultDto">
+        SELECT
+            t1.mastery_level,
+            t1.consecutive_hits,
+            t1.next_review_at
+        FROM tb_user_word_progress t1
+        WHERE t1.user_id = #{userId} AND t1.word_no = #{word_no}
+    </select>
+
+    <insert id="saveDailyLearnWordProgress" parameterType="SaveWordProgressRequestDto">
+        INSERT INTO tb_user_word_progress (
+        user_id,
+        word_no,
+        mastery_level,
+        consecutive_hits,
+        next_review_at,
+        last_reviewed_at,
+        created_at
+        )
+        tb_user_word_progress VALUES (
+            #{userId},
+            #{wordNo},
+            #{masteryLevel},
+            #{consecutiveHits},
+            #{nextReviewAt},
+            NOW(),
+            NOW()
+            )
+        ON CONFLICT (user_id, word_no)
+            DO UPDATE SET
+            mastery_level = EXCLUDED.mastery_level,
+            consecutive_hits = EXCLUDED.consecutive_hits,
+            next_review_at = EXCLUDED.next_review_at,
+            last_reviewed_at = NOW();
+    </insert>
+
 </mapper>

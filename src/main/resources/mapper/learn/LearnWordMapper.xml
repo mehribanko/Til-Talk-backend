@@ -35,7 +35,7 @@
             t1.consecutive_hits,
             t1.next_review_at
         FROM tb_user_word_progress t1
-        WHERE t1.user_id = #{userId} AND t1.word_no = #{word_no}
+        WHERE t1.user_id = #{userId} AND t1.word_no = #{wordNo}
     </select>
 
     <insert id="saveDailyLearnWordProgress" parameterType="SaveWordProgressRequestDto">
@@ -48,7 +48,7 @@
         last_reviewed_at,
         created_at
         )
-        tb_user_word_progress VALUES (
+         VALUES (
             #{userId},
             #{wordNo},
             #{masteryLevel},

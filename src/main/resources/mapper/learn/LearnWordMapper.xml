@@ -38,6 +38,27 @@
         WHERE t1.user_id = #{userId} AND t1.word_no = #{wordNo}
     </select>
 
+
+    <select id="getUserSettingDetails" resultType="UserSettingResultDto" parameterType="LearnWordRequestDto">
+    SELECT
+         t1.daily_word_limit
+        ,t1.native_lang
+        ,t1.target_lang
+    FROM tb_user_settings t1
+    WHERE t1.user_id = #{userId}
+    </select>
+
+<select id="getLastLearnedWordList" resultType="WordProgressItem" parameterType="LearnWordRequestDto" >
+    SELECT
+    t1.word_no
+    ,t1.created_at
+    ,t1.last_reviewed_at
+    FROM tb_user_word_progress t1
+    where t1.user_id = #{userId}
+    order by t1.created_at desc
+    limit #{dailyWordLimit}
+</select>
+
     <insert id="saveDailyLearnWordProgress" parameterType="SaveWordProgressRequestDto">
         INSERT INTO tb_user_word_progress (
         user_id,

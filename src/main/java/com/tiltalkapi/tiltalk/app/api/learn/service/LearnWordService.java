@@ -1,5 +1,6 @@
 package com.tiltalkapi.tiltalk.app.api.learn.service;
 
+import com.tiltalkapi.tiltalk.app.api.data.WordProgressItem;
 import com.tiltalkapi.tiltalk.app.api.learn.dto.*;
 import com.tiltalkapi.tiltalk.app.api.learn.mapper.LearnWordMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,18 @@ public class LearnWordService {
     final LearnWordMapper learnWordMapper;
 
     public List<LearnWordItemDto> getDailyLearnWords(LearnWordRequestDto requestDto){
+
+        requestDto.setUserId(1);
+
+        UserSettingResultDto userDetails = learnWordMapper.getUserSettingDetails(requestDto);
+
+        requestDto.setDailyWordLimit(userDetails.getDailyWordLimit());
+        requestDto.setTargetLang(userDetails.getTargetLang());
+
+        List<WordProgressItem> lastLearnedWordList = learnWordMapper.getLastLearnedWordList(requestDto);
+
+
+
         return learnWordMapper.getDailyLearnWords(requestDto);
     }
 

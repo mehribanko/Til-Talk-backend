@@ -1,4 +1,5 @@
 package com.tiltalkapi.tiltalk.app.api.learn.mapper;
+import com.tiltalkapi.tiltalk.app.api.data.WordProgressItem;
 import com.tiltalkapi.tiltalk.app.api.learn.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,10 @@ public interface LearnWordMapper {
     UserSettingResultDto getDailyLearnLimit(UserSettingRequestDto requestDto);
 
     WordProgressResultDto getUserProgressPerWord(SaveWordProgressRequestDto requestDto);
+
+    UserSettingResultDto getUserSettingDetails(LearnWordRequestDto requestDto);
+
+    List<WordProgressItem> getLastLearnedWordList(LearnWordRequestDto requestDto);
 
     void saveDailyLearnWordProgress(SaveWordProgressRequestDto requestDto);
 

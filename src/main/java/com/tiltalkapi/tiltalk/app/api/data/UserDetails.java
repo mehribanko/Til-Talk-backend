@@ -9,5 +9,9 @@ import lombok.Setter;
 public class UserDetails {
 
     private int userId;
+    private int dailyWordLimit;
+    private String nativeLang;
+    private String targetLang;
+
 
 }

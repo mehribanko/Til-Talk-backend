@@ -15,7 +15,8 @@
                tb1.kk_romanization,
                tb1.kk_audio_url
         FROM tb_words tb1
-        LEFT JOIN tb_category tb2 ON tb2.category_no = tb1.category_no;
+        LEFT JOIN tb_category tb2 ON tb2.category_no = tb1.category_no
+       LIMIT  #{dailyWordLimit}
     </select>
 
     <select id ="getDailyLearnLimit" parameterType="UserSettingRequestDto" resultType="UserSettingResultDto">

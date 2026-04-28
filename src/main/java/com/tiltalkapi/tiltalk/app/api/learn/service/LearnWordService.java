@@ -4,10 +4,13 @@ import com.tiltalkapi.tiltalk.app.api.data.WordProgressItem;
 import com.tiltalkapi.tiltalk.app.api.learn.dto.*;
 import com.tiltalkapi.tiltalk.app.api.learn.mapper.LearnWordMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,16 +22,17 @@ public class LearnWordService {
     public List<LearnWordItemDto> getDailyLearnWords(LearnWordRequestDto requestDto){
 
         requestDto.setUserId(1);
-
         UserSettingResultDto userDetails = learnWordMapper.getUserSettingDetails(requestDto);
-
         requestDto.setDailyWordLimit(userDetails.getDailyWordLimit());
         requestDto.setTargetLang(userDetails.getTargetLang());
 
-        List<WordProgressItem> lastLearnedWordList = learnWordMapper.getLastLearnedWordList(requestDto);
-
-
-
+        int todayLearnedWordCount = getTodayLearnedWordCount(requestDto);
+        if(todayLearnedWordCount >= userDetails.getDailyWordLimit()){
+            return new ArrayList<>();
+        }else{
+            int remainingWordCount = userDetails.getDailyWordLimit()- todayLearnedWordCount;
+            requestDto.setDailyWordLimit(remainingWordCount);
+        }
         return learnWordMapper.getDailyLearnWords(requestDto);
     }
 
@@ -56,6 +60,19 @@ public class LearnWordService {
     private WordProgressResultDto getUserProgressPerWord(SaveWordProgressRequestDto requestDto){
 
         return learnWordMapper.getUserProgressPerWord(requestDto);
+
+    }
+
+    private int getTodayLearnedWordCount(LearnWordRequestDto requestDto) {
+        List<WordProgressItem> lastLearnedWordList = learnWordMapper.getLastLearnedWordList(requestDto);
+        LocalDateTime today = LocalDateTime.now();
+        int learnedWordCount = 0;
+        for(WordProgressItem  item : lastLearnedWordList ){
+            if(item.getCreatedAt().equals(today)){
+                learnedWordCount++;
+            }
+        }
+        return learnedWordCount;
 
     }
 
